@@ -17,6 +17,20 @@ This is a learning project focused on understanding the implementation through h
 - Evaluation across English, technical text, code, SQL, URLs, numbers, Hindi, Japanese, Chinese, and other symbols.
 - Experiments comparing tokenization efficiency across vocabulary sizes.
 
+## Current Status and Next Steps
+
+This is an educational implementation, and I am improving it incrementally as I learn more about tokenization and BPE.
+
+### Next Steps
+
+- Fix and rerun category-level evaluation.
+- Add automated tests for encoding/decoding and save/load.
+- Improve training efficiency by reducing repeated pair counting and corpus scans.
+- Explore special-token handling and improve pre-tokenization.
+- Evaluate on larger held-out datasets and compare results across domains.
+
+These are planned improvements. I will work through them one at a time as I continue experimenting with the implementation.
+
 ## Repository structure
 
 ```text
