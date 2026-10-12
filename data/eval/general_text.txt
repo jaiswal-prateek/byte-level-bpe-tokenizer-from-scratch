@@ -1,0 +1,29 @@
+Artificial intelligence systems are increasingly being used to analyze large collections of documents, summarize information, generate code, and assist with complex decision-making. A modern language model does not process raw characters directly. Instead, text is converted into a sequence of tokens that the model can efficiently represent and process.
+
+The quick brown fox jumps over the lazy dog. Machine learning models often need to handle words such as internationalization, computationally, misunderstood, preprocessing, and representation. Some words are common and can be represented efficiently, while rare or unfamiliar words may require several smaller subword tokens.
+
+In a real production system, text is rarely clean. Documents may contain numbers such as 2026, 3.14159, 10,000, and 99.99%. They may contain dates like 2026-10-07, identifiers such as user_id_12345, file names such as model_config_v2.json, and URLs such as https://example.com/api/v1/users?id=12345.
+
+SQL queries are another useful test case:
+SELECT customer_id, COUNT(*) AS order_count, SUM(order_value) AS total_value
+FROM orders
+WHERE order_date >= '2026-01-01'
+GROUP BY customer_id
+HAVING COUNT(*) > 10
+ORDER BY total_value DESC;
+
+Python code introduces additional patterns:
+def calculate_average(values):
+    if not values:
+        return 0.0
+    return sum(values) / len(values)
+
+Unicode provides another important challenge. English is only one language used by modern language models. Text may contain Hindi such as नमस्ते दुनिया, Japanese such as こんにちは世界, Chinese such as 人工智能, and emojis such as 🚀 🤖 🌍. A byte-level tokenizer should be able to represent these characters even when they were not common in the training corpus.
+
+Consider a mixed-language sentence: "I am learning machine learning और artificial intelligence क्योंकि यह interesting है." The tokenizer should represent the complete sequence without requiring an unknown-token fallback.
+
+Large language models also encounter punctuation, quotation marks, apostrophes, contractions, hyphenated words, email addresses, mathematical expressions, and unusual formatting. Examples include don't, we're, state-of-the-art, end-to-end, user@example.com, x = y + 10, and key:value.
+
+The purpose of this evaluation corpus is not to measure language understanding. It is to measure how efficiently different vocabularies represent the same underlying text. A tokenizer with a larger vocabulary may use fewer tokens, but that does not automatically mean it is better. Vocabulary size also affects memory usage, embedding parameters, output-layer parameters, and the ability to represent rare or unseen patterns.
+
+Therefore, tokenizer evaluation should consider multiple dimensions rather than looking only at the total number of tokens. Useful measurements include tokens per character, characters per token, vocabulary utilization, sequence length, and behavior across different domains and writing systems.

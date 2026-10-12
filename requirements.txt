@@ -2,3 +2,4 @@ numpy
 tqdm
 jupyter
 matplotlib
+datasets

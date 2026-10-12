@@ -1,0 +1,297 @@
+# English Prose
+
+Artificial intelligence systems are increasingly being used to analyze large collections of documents, summarize information, discover patterns, and generate code. A useful language model must represent both common words and unusual expressions efficiently. Tokenization determines how raw text is converted into discrete units that a neural network can process.
+
+The history of scientific discovery is filled with examples of ideas that initially appeared unrelated but later became connected. Researchers often begin with a small observation, formulate a hypothesis, collect evidence, and then refine their explanation. Good engineering follows a similar process: measure the system, identify the bottleneck, form a hypothesis, test it experimentally, and iterate.
+
+Modern software systems process enormous amounts of information. A search engine may need to understand billions of documents, while an analytics platform may process millions of events every hour. Efficient representations therefore matter because even a small reduction in the number of tokens can significantly reduce computational cost.
+
+# Technical Text
+
+A transformer converts a sequence of token representations into contextual representations using self-attention and feed-forward transformations. For an input matrix X, the attention mechanism projects the representations into queries, keys, and values. Attention weights are obtained from the scaled dot product between queries and keys, followed by a softmax operation.
+
+The computational complexity of standard self-attention is O(n^2 d), where n is the sequence length and d is the representation dimension. This quadratic dependence on sequence length becomes expensive for long contexts. Techniques such as grouped-query attention, multi-query attention, sliding-window attention, and efficient attention kernels attempt to reduce memory or computation requirements.
+
+A tokenizer sits before the neural network. It converts text into token IDs, which are then mapped through an embedding matrix. If the vocabulary contains V tokens and the model embedding dimension is d_model, the embedding table contains V * d_model parameters. Increasing vocabulary size can therefore reduce sequence length while increasing the number of parameters in the embedding and output layers.
+
+# Python
+
+def train_model(dataset, learning_rate=3e-4, batch_size=32):
+    """Train a small neural network on the supplied dataset."""
+    model = TransformerModel(
+        d_model=256,
+        num_heads=8,
+        num_layers=6,
+        dropout=0.1,
+    )
+
+    optimizer = AdamW(
+        model.parameters(),
+        lr=learning_rate,
+        weight_decay=0.01,
+    )
+
+    for epoch in range(10):
+        for batch in dataset:
+            inputs, targets = batch
+            logits = model(inputs)
+            loss = cross_entropy(logits, targets)
+
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+    return model
+
+
+def tokenize_and_count(text, tokenizer):
+    tokens = tokenizer.encode(text)
+    return {
+        "characters": len(text),
+        "tokens": len(tokens),
+        "tokens_per_character": len(tokens) / len(text),
+    }
+
+
+config = {
+    "model_name": "mini-gpt",
+    "vocab_size": 16384,
+    "context_length": 512,
+    "learning_rate": 3e-4,
+    "batch_size": 32,
+}
+
+# Example command:
+# python train.py --vocab-size 16384 --context-length 512
+
+# File path used by the training pipeline:
+dataset_path = "data/raw/train.jsonl"
+
+# A simple list comprehension can transform records:
+texts = [record["text"].strip() for record in records if record["text"].strip()]
+
+# Unicode strings can contain characters from many writing systems:
+message = "Hello, नमस्ते, こんにちは, 你好!"
+
+# Long identifiers are common in real software:
+customer_order_transaction_identifier = "cust_2026_IN_00981234"
+
+# URLs and API endpoints are also common model inputs:
+endpoint = "https://api.example.com/v1/customers/12345/orders?status=completed"
+
+# SQL
+
+SELECT
+    customer_id,
+    order_date,
+    order_amount,
+    ROW_NUMBER() OVER (
+        PARTITION BY customer_id
+        ORDER BY order_date DESC
+    ) AS order_rank
+FROM orders
+WHERE order_date >= DATE '2026-01-01'
+  AND order_status = 'COMPLETED';
+
+
+WITH customer_metrics AS (
+    SELECT
+        customer_id,
+        COUNT(DISTINCT order_id) AS order_count,
+        SUM(order_amount) AS total_revenue,
+        AVG(order_amount) AS average_order_value
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT
+    customer_id,
+    order_count,
+    total_revenue,
+    average_order_value
+FROM customer_metrics
+WHERE total_revenue > 100000
+ORDER BY total_revenue DESC;
+
+
+SELECT
+    a.customer_id,
+    a.order_id,
+    b.product_category,
+    SUM(a.quantity * a.unit_price) AS revenue
+FROM order_items a
+JOIN products b
+    ON a.product_id = b.product_id
+LEFT JOIN customers c
+    ON a.customer_id = c.customer_id
+WHERE a.created_at >= TIMESTAMP '2026-01-01 00:00:00'
+GROUP BY
+    a.customer_id,
+    a.order_id,
+    b.product_category
+HAVING SUM(a.quantity * a.unit_price) > 5000;
+
+# URLs and Paths
+
+https://www.google.com/search?q=large+language+models
+https://github.com/jaiswal-prateek/mini-gpt-from-scratch
+https://huggingface.co/datasets/karpathy/tinystories-gpt4-clean
+https://api.example.com/v1/models/mini-gpt/generate?temperature=0.7&max_tokens=256
+https://example.com/products/AI-Transformer-Model?region=in&currency=INR
+
+/home/user/projects/llm/tokenizer/bpe.py
+./data/raw/tinystories.jsonl
+C:\Users\prateek\projects\llm\artifacts\tokenizer_16384.json
+s3://example-bucket/ml/datasets/tinystories/train.jsonl
+arn:aws:s3:::example-bucket/ml/checkpoints/model.pt
+
+# Numbers, Dates and Measurements
+
+The experiment started on 2026-01-15 and finished on 2026-02-28.
+
+The model processed 4,294,967 tokens using a batch size of 128 and a context length of 2,048 tokens. Training consumed approximately 17.5 GB of GPU memory and required 3.75 hours.
+
+Revenue increased from ₹12,450,000 to ₹15,875,000, representing approximately 27.51% growth.
+
+The temperature was 37.5°C, the distance was 42.195 km, and the measured latency was 183.72 ms.
+
+Version 3.10.14 was followed by version 3.11.9 and then version 3.12.7.
+
+The hexadecimal value 0xFF, binary value 10110101, and floating-point value 3.141592653589793 represent different numerical formats.
+
+# Rare and Long Words
+
+Electroencephalographically, disproportionately, incomprehensibility, institutionalization, internationalization, counterintelligence, interoperability, representationalism, cryptocurrency, thermodynamics, telecommunications, characterization, computationally, multidimensionality, reproducibility, decentralization, authentication, authorization, serialization, deserialization.
+
+The pneumonoultramicroscopicsilicovolcanoconiosis example is intentionally included because extremely long words can expose differences between tokenization strategies.
+
+# Hindi
+
+कृत्रिम बुद्धिमत्ता आज के समय में कंप्यूटर विज्ञान और सॉफ्टवेयर इंजीनियरिंग का एक महत्वपूर्ण क्षेत्र बन चुकी है। बड़े भाषा मॉडल बहुत बड़ी मात्रा में टेक्स्ट से पैटर्न सीखते हैं और फिर नए टेक्स्ट को समझने तथा उत्पन्न करने का प्रयास करते हैं।
+
+टोकनाइज़र किसी भी भाषा मॉडल की प्रारंभिक प्रक्रिया का महत्वपूर्ण हिस्सा होता है। यह सामान्य टेक्स्ट को छोटे-छोटे टोकन में बदलता है और प्रत्येक टोकन को एक विशिष्ट संख्या या आईडी प्रदान करता है।
+
+भारत में अलग-अलग भाषाओं, लिपियों और बोलियों का प्रयोग किया जाता है। इसलिए एक सामान्य भाषा मॉडल के लिए केवल अंग्रेज़ी टेक्स्ट को अच्छी तरह संभालना पर्याप्त नहीं है।
+
+यह वाक्य हिंदी और English दोनों को मिलाता है ताकि multilingual और code-switching behavior को भी evaluate किया जा सके।
+
+# Japanese
+
+人工知能は、自然言語処理、画像認識、音声認識、ロボット工学など、さまざまな分野で利用されています。
+
+大規模言語モデルは大量のテキストデータから統計的なパターンを学習し、入力された文章に続く可能性の高いトークンを予測します。
+
+トークン化の方法によって、同じ文章でも必要なトークン数は大きく変わる可能性があります。
+
+日本語では英語とは異なる文字体系が使用され、漢字、ひらがな、カタカナが同じ文章の中で組み合わされることがあります。
+
+# Chinese
+
+人工智能正在改变软件开发、搜索、推荐系统和数据分析等多个领域。
+
+大型语言模型通过大量文本数据学习语言中的统计规律，并根据上下文预测下一个可能出现的词元。
+
+中文文本通常不使用空格分隔单词，因此分词器需要采用适合中文语言结构的方法处理连续的汉字序列。
+
+不同的词表大小会影响文本压缩效率、模型参数数量以及推理时所需要的序列长度。
+
+# Emoji and Symbols
+
+The model should handle emojis correctly: 😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚
+
+Technology symbols: ⚡ 🔥 🚀 🤖 🧠 💻 🖥️ 📱 🔐 🔑 🛠️ ⚙️
+
+Mathematical symbols: ∑ ∏ √ ∞ ≈ ≠ ≤ ≥ ± × ÷ ∂ ∇ λ θ π α β γ
+
+Currency symbols: ₹ $ € £ ¥ ₩ ₽ ₿
+
+Arrows and operators: → ← ↑ ↓ ⇒ ⇐ ↔ ⇄ ⟶ ⟷
+
+# Mixed Hindi-English
+
+आज मैं एक Python script लिख रहा हूँ जो tokenizer को train करेगा और फिर उसके vocabulary size को 16K से 32K तक बढ़ाकर token efficiency compare करेगा।
+
+अगर model को बहुत ज्यादा tokens generate करने पड़ते हैं, तो inference cost और latency दोनों बढ़ सकते हैं।
+
+हम अलग-अलग corpus पर test करेंगे कि tokenizer कितने characters को एक token में represent करता है।
+
+यह एक सामान्य production scenario है जहाँ data में English, हिंदी, numbers, URLs और identifiers एक साथ मौजूद हो सकते हैं।
+
+# Code and Identifiers
+
+class ByteLevelBPETokenizer:
+    def __init__(self, vocab_size=8192):
+        self.vocab_size = vocab_size
+        self.vocab = {}
+        self.merges = {}
+        self.merge_ranks = {}
+
+    def encode(self, text):
+        tokens = []
+        for piece in self.pretokenize(text):
+            tokens.extend(self._encode_piece(piece))
+        return tokens
+
+    def decode(self, tokens):
+        byte_data = b"".join(self.vocab[token] for token in tokens)
+        return byte_data.decode("utf-8")
+
+
+tokenizer_config = {
+    "vocab_size": 32768,
+    "min_frequency": 2,
+    "byte_fallback": True,
+    "special_tokens": ["<pad>", "<bos>", "<eos>", "<unk>"],
+}
+
+# Long identifiers and variable names
+customer_lifetime_value_prediction_model = "clv_v2_production"
+aws_redshift_cluster_identifier = "analytics-production-cluster-01"
+selection_composer_authoritative_source_availability = True
+
+# Regular expressions
+pattern = r" ?[A-Za-z]+(?:'[A-Za-z]+)?| ?[0-9]+|[^\w\s]+|\s+"
+
+# JSON
+json_record = {
+    "customer_id": 123456,
+    "country": "IN",
+    "language": "hi",
+    "revenue": 15499.75,
+    "active": True,
+    "tags": ["analytics", "machine-learning", "llm"],
+}
+
+# Shell commands
+python scripts/train_tokenizer.py --vocab-size 16384
+python scripts/train_tokenizer.py --vocab-size 32768 --output artifacts/tokenizer_32768.json
+git commit -m "feat: add byte-level BPE tokenizer"
+pip install -e .
+pytest tests/ -v
+
+# Mixed Technical Content
+
+The tokenizer should preserve round-trip correctness:
+
+text → UTF-8 bytes → token IDs → vocabulary bytes → UTF-8 text
+
+For byte-level BPE, the initial vocabulary contains 256 possible byte values:
+
+0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
+48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
+64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
+80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
+96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
+110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122,
+123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135,
+136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148,
+149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161,
+162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174,
+175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187,
+188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200,
+201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213,
+214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226,
+227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239,
+240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252,
+253, 254, 255
